@@ -18,7 +18,8 @@ The Python implementation automates interaction with multiple AI APIs by abstrac
 Below is a simplified example demonstrating integration with two AI services: OpenAI’s GPT and a hypothetical sentiment analysis API. The send_request function handles HTTP POST requests with appropriate headers and payloads. Responses are parsed using JSON decoding tailored to each API's output schema, and results are stored in a dictionary for easy comparison.
 ```
 \*
-import requests import os def send_request(url, headers, payload):
+import requests
+import os def send_request(url, headers, payload):
 response = requests.post(url, headers=headers, json=payload)
 response.raise_for_status()
 return response.json()
@@ -28,8 +29,9 @@ return response.json()
  gpt_response = send_request(openai_url, openai_headers, openai_payload)
 gpt_output = gpt_response["choices"][0]["message"]["content"]
 # Sentiment Analysis API call sentiment_url = "https://api.sentiment.example/analyze" sentiment_headers = {"Authorization": f"Bearer {os.getenv('SENTIMENT_API_KEY')}"}
-sentiment_payload = {"text": gpt_output} sentiment_response = send_request(sentiment_url, sentiment_headers, sentiment_payload)
- sentiment_score = sentiment_response["results"]["sentiment_score"]
+sentiment_payload = {"text": gpt_output}
+sentiment_response = send_request(sentiment_url, sentiment_headers, sentiment_payload)
+sentiment_score = sentiment_response["results"]["sentiment_score"]
 # Aggregated results results = { "gpt_output": gpt_output, "sentiment_score": sentiment_score }
 \*
 ```
